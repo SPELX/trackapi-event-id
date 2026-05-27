@@ -242,39 +242,39 @@ ___WEB_PERMISSIONS___
 ___TESTS___
 
 scenarios:
-  - name: 'returns event_id from dataLayer when present'
-    code: |-
-      mock('copyFromDataLayer', function(key) {
-        if (key === 'event_id') return 'dl_event_id_abc123';
-        return undefined;
-      });
-      let result = runCode({ttl: 8000});
-      assertThat(result).isEqualTo('dl_event_id_abc123');
-  - name: 'generates new id starting with evt_ when dataLayer is empty'
-    code: |-
-      mock('copyFromDataLayer', function() { return undefined; });
-      mock('copyFromWindow', function() { return undefined; });
-      mock('setInWindow', function() {});
-      mock('getTimestampMillis', function() { return 1700000000000; });
-      mock('generateRandom', function() { return 42; });
-      mock('getUrl', function(part) { return part === 'path' ? '/test' : ''; });
-      let result = runCode({ttl: 8000});
-      assertThat(result).isEqualTo('evt_1700000000000_42');
-  - name: 'returns cached id within TTL for same event and route'
-    code: |-
-      let cache = {};
-      mock('copyFromDataLayer', function() { return undefined; });
-      mock('copyFromWindow', function(key) {
-        return key === '_tapiEventIdCache' ? cache : undefined;
-      });
-      mock('setInWindow', function(key, val) { cache = val; });
-      mock('getTimestampMillis', function() { return 1700000000000; });
-      mock('generateRandom', function() { return 99; });
-      mock('getUrl', function(part) { return part === 'path' ? '/home' : ''; });
-      let firstResult = runCode({ttl: 8000});
-      mock('generateRandom', function() { return 100; });
-      let secondResult = runCode({ttl: 8000});
-      assertThat(firstResult).isEqualTo(secondResult);
+- name: returns event_id from dataLayer when present
+  code: |-
+    mock('copyFromDataLayer', function(key) {
+      if (key === 'event_id') return 'dl_event_id_abc123';
+      return undefined;
+    });
+    let result = runCode({ttl: 8000});
+    assertThat(result).isEqualTo('dl_event_id_abc123');
+- name: generates new id starting with evt_ when dataLayer is empty
+  code: |-
+    mock('copyFromDataLayer', function() { return undefined; });
+    mock('copyFromWindow', function() { return undefined; });
+    mock('setInWindow', function() {});
+    mock('getTimestampMillis', function() { return 1700000000000; });
+    mock('generateRandom', function() { return 42; });
+    mock('getUrl', function(part) { return part === 'path' ? '/test' : ''; });
+    let result = runCode({ttl: 8000});
+    assertThat(result).isEqualTo('evt_1700000000000_42');
+- name: returns cached id within TTL for same event+route
+  code: |-
+    let cache = {};
+    mock('copyFromDataLayer', function() { return undefined; });
+    mock('copyFromWindow', function(key) {
+      return key === '_tapiEventIdCache' ? cache : undefined;
+    });
+    mock('setInWindow', function(key, val) { cache = val; });
+    mock('getTimestampMillis', function() { return 1700000000000; });
+    mock('generateRandom', function() { return 99; });
+    mock('getUrl', function(part) { return part === 'path' ? '/home' : ''; });
+    let firstResult = runCode({ttl: 8000});
+    mock('generateRandom', function() { return 100; });
+    let secondResult = runCode({ttl: 8000});
+    assertThat(firstResult).isEqualTo(secondResult);
 
 
 ___NOTES___
