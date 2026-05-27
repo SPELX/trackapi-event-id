@@ -260,7 +260,7 @@ scenarios:
       mock('getUrl', function(part) { return part === 'path' ? '/test' : ''; });
       let result = runCode({ttl: 8000});
       assertThat(result).isEqualTo('evt_1700000000000_42');
-  - name: 'returns cached id within TTL for same event+route'
+  - name: 'returns cached id within TTL for same event and route'
     code: |-
       let cache = {};
       mock('copyFromDataLayer', function() { return undefined; });
