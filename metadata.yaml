@@ -1,6 +1,8 @@
 homepage: "https://trackapi.app.br"
 documentation: "https://trackapi.app.br/docs"
 versions:
+  - sha: c97acef597d03496ad67177d03ca451da4c6ac04
+    changeNotes: Fix documentation URL (was 404). Point to https://trackapi.app.br/docs.
   - sha: b09bfa70dbb32e9b63b3703ba5cc4acdaf2ce262
     changeNotes: GTM export with TOS accepted for gallery submission.
   - sha: 42d8a4c2cdaf22bcb7fea949ad9aace8040420cd
