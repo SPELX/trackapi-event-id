@@ -1,5 +1,5 @@
 homepage: "https://trackapi.app.br"
-documentation: "https://trackapi.app.br/docs/sdk"
+documentation: "https://trackapi.app.br/docs"
 versions:
   - sha: b09bfa70dbb32e9b63b3703ba5cc4acdaf2ce262
     changeNotes: GTM export with TOS accepted for gallery submission.
